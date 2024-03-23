@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link id="themeStylesheet" rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="index.js"></script>
+
+    <title></title>
+</head>
+<body>
+<header class="header">
+    <img src="https://minecraft.wiki/images/String_JE2_BE2.png?25d69" alt="FibreWiki Logo, A String item from Minecraft." class="logo">
+    <input type="text" class="search-bar" placeholder="Search...">
+    <nav class="links">
+        <a href="#">Sign Up/Log In</a>
+        <a href="#">About Site</a>
+        <a href="#">About Plugin</a>
+    </nav>
+</header>
+
+<div id="outline"></div>
+
+<div class="content" id="content"></div>
+
+<button id="scrollToTopButton">Scroll to Top</button>
+<script>
+    $(document).ready(function() {
+        $.get("w/page.md", function(data){
+            console.log(data);
+            let articleElement = $('#content');
+            let eleSplice = $('<article></article>');
+            let eleFront = $('<article></article>');
+
+            let converter = new showdown.Converter({
+                tables: true,
+                tablesHeaderId: true,
+                emoji: true
+            });
+
+            // loading splice article
+            eleSplice.html(`${converter.makeHtml(data)}`);
+            eleSplice.css('fontSize', '10px');
+            articleElement.append(eleSplice);
+
+            $(':header').each(function(index) {
+                // Get the id and text of the header tag
+                let id = $(this).attr('id');
+                let text = $(this).text();
+
+                // Create a link element
+                let link = $('<a></a>');
+                link.attr('href', '#' + id);
+                if (text.length >= 20) {
+                    text = text.substring(0, 20) + "..."
+                }
+                link.text(text);
+
+                // Add class for indentation based on header level
+                let indentClass = 'indent-' + $(this).prop('tagName').toLowerCase().slice(1);
+                link.addClass(indentClass);
+
+                // Append the link to the outline container
+                $('#outline').append(link);
+            });
+        });
+
+        $(window).scroll(function() {
+            // get the threshold and scroll pos
+            var threshold = 0.05 * $(document).height();
+            var scrollPosition = $(window).scrollTop();
+            var $scrollToTopButton = $('#scrollToTopButton');
+
+            // magic the button into existence
+            if (scrollPosition > threshold) {
+                $scrollToTopButton.css('display', 'block');
+            } else {
+                $scrollToTopButton.css('display', 'none');
+            }
+        });
+
+        $('#scrollToTopButton').click(function() {
+            $('html, body').animate({scrollTop: 0}, 800);
+        });
+    });
+</script>
+</body>
+</html>

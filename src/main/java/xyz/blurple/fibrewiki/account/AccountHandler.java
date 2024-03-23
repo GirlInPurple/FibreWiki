@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2024 Jonas_Jones, magistermaks, TheColorBlurple
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package xyz.blurple.fibrewiki.account;
 
 import xyz.blurple.fibrewiki.FibreWiki;
@@ -5,23 +27,24 @@ import xyz.blurple.fibrewiki.FibreWiki;
 import java.net.InetAddress;
 import java.util.*;
 
-public class AccountHandler implements Runnable {
+public class AccountHandler{
 
     public static HashMap<UUID, List<InetAddress>> savedAccounts = new HashMap<>();
     public static List<LoginCode> stagedAccounts = new ArrayList<>();
 
-    @Override
-    public void run() {
-        FibreWiki.LOGGER.info("Starting Account System...");
+    public static void loadAccounts() {
+        FibreWiki.LOGGER.info("Loading Accounts...");
+
+        // TODO: gson shenanigans.
     }
 
-    public String genNewCode(InetAddress address) {
+    public static String stageNewCode(InetAddress address) {
         LoginCode lc = new LoginCode(address);
         stagedAccounts.add(lc);
         return lc.HEX;
     }
 
-    public static void saveAccount(UUID player, InetAddress address) {
+    public static void confirmAccount(UUID player, InetAddress address) {
         List<InetAddress> addressList = savedAccounts.get(player);
         addressList.add(address);
         savedAccounts.put(player, addressList);

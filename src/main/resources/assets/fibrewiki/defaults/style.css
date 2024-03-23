@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #1f1f1f;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.header {
+    background-color: #ddd;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    cursor: pointer;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+.links {
+    display: flex;
+}
+
+.links a {
+    color: #000;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.links a:first-child {
+    margin-left: 0;
+}
+
+div.content {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    position: relative;
+}
+
+div.mp-header {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ddd;
+    background-color: #f9f9f9;
+    color: #202122;
+    text-align: center;
+    position: relative;
+    margin: 0.4em;
+}
+
+div.mp-header h1 {
+    --font-size-medium: 0.875rem;
+    --line-height-medium: 1.5714285;
+    --background-color-base: #fff;
+    direction: ltr;
+    text-align: center;
+    color: #000;
+    font-weight: normal;
+    line-height: 1.375;
+    font-family: inherit;
+}
+
+div.mp-random {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #00dd00;
+    background-color: #00f900;
+    color: #202122;
+    text-align: left;
+    position: left;
+    margin: 0.4em;
+}
+
+div.mp-random h1 {
+
+}
+
+#scrollToTopButton {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#outline {
+    position: fixed;
+    top: 120px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+#outline a {
+    display: block;
+    margin-left: 0;
+    text-decoration: none;
+    color: #333;
+}
+
+#outline a:hover {
+    color: #007bff;
+}
+
+/* Additional styling for different levels of indentation */
+#outline a.indent-1 {
+    margin-left: 10px;
+}
+
+#outline a.indent-2 {
+    margin-left: 20px;
+}
+
+#outline a.indent-3 {
+    margin-left: 30px;
+}
+
+#outline a.indent-4 {
+    margin-left: 40px;
+}

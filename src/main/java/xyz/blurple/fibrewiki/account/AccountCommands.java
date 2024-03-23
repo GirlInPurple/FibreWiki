@@ -43,14 +43,14 @@ public class AccountCommands {
             dispatcher.register(CommandManager.literal("fibre-account")
                 .then(CommandManager.literal("code")
                     .then(CommandManager.argument("Code", StringArgumentType.word())
-                        .executes(this::test)
+                        .executes(this::attemptLogin)
                     )
                 )
             );
         });
     }
 
-    public int test(CommandContext<ServerCommandSource> c) throws CommandSyntaxException {
+    public int attemptLogin(CommandContext<ServerCommandSource> c) throws CommandSyntaxException {
 
         if (!c.getSource().isExecutedByPlayer()) {
             FibreWiki.CM
@@ -75,16 +75,16 @@ public class AccountCommands {
             FibreWiki.CM
                 .object(
                     new Singleton()
-                    .add(Text.of("The IP Adress \""))
-                    .add(Text.of(address.toString()))
-                    .add(Text.of("Has been saved"))
-                    .create()
+                        .add(Text.of("The IP Address \""))
+                        .add(Text.of(address.toString()))
+                        .add(Text.of("\" has been saved to your account!"))
+                        .create()
                 )
                 .send(c);
 
-            saveAccount(
-                    c.getSource().getPlayer().getUuid(),
-                    address
+            confirmAccount(
+                c.getSource().getPlayer().getUuid(),
+                address
             );
         } else {
             FibreWiki.CM

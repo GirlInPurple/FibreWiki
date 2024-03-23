@@ -26,13 +26,7 @@ import xyz.blurple.fibrewiki.FibreWiki;
 import xyz.blurple.fibrewiki.config.ModConfigs;
 import xyz.blurple.fibrewiki.util.VerboseLogger;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.InetAddress;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -43,9 +37,13 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.StringTokenizer;
 
+import static xyz.blurple.fibrewiki.account.AccountHandler.stageNewCode;
 import static xyz.blurple.fibrewiki.web.ServerHandler.isServerActive;
 
 public class HttpServer implements Runnable {
+
+    public static boolean editingEnabled = true;
+    public static void setEditingEnabled(boolean b) {editingEnabled = b;}
     static Path WEB_ROOT;
     static final String DEFAULT_FILE = ModConfigs.WEB_FILE_ROOT;
     static final String FILE_NOT_FOUND = ModConfigs.WEB_FILE_404;
@@ -112,7 +110,7 @@ public class HttpServer implements Runnable {
             PrintWriter out = null;
             BufferedOutputStream dataOut = null;
             String fileRequested = null;
-            InetAddress connectionAddress = null;
+            String hexCode = null;
 
             try {
                 // we read characters from the client via input stream on the socket
@@ -161,9 +159,8 @@ public class HttpServer implements Runnable {
                     }
 
                     if (fileRequested.equals("code")) {
-                        // get connected IP Address
-                        connectionAddress = connect.getInetAddress();
-
+                        hexCode = stageNewCode(connect.getInetAddress());
+                        fileRequested = "code.json";
                     }
 
                     Path file = WEB_ROOT.resolve(fileRequested).toRealPath(LinkOption.NOFOLLOW_LINKS);

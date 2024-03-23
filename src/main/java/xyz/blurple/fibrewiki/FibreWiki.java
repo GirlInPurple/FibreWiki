@@ -23,6 +23,7 @@
 package xyz.blurple.fibrewiki;
 
 import xyz.blurple.chatmsglib.ChatMessage;
+import xyz.blurple.fibrewiki.account.AccountHandler;
 import xyz.blurple.fibrewiki.config.ModConfigs;
 import xyz.blurple.fibrewiki.web.ServerHandler;
 import net.fabricmc.api.DedicatedServerModInitializer;
@@ -53,7 +54,7 @@ public class FibreWiki implements DedicatedServerModInitializer {
 		}
 
 		// start the account system
-
+		AccountHandler.loadAccounts();
 
 		// start the server
 		ServerHandler.start();
