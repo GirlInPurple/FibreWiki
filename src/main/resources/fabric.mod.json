@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "mcwebserver",
+  "id": "fibrewiki",
   "version": "${version}",
 
-  "name": "McWebserver",
+  "name": "FibreWiki",
   "description": "A simple webserver that runs alongside the Minecraft Server",
   "authors": [
     "Jonas_Jones"
@@ -15,16 +15,14 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/mcwebserver/icon.png",
+  "icon": "assets/fibrewiki/icon.png",
 
   "environment": "server",
   "entrypoints": {
-    "main": [
-      "me.jonasjones.mcwebserver.McWebserver"
-    ]
+    "server": ["xyz.blurple.fibrewiki.FibreWiki"]
   },
   "mixins": [
-    "mcwebserver.mixins.json"
+    "fibrewiki.mixins.json"
   ],
 
   "depends": {
